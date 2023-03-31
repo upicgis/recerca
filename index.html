@@ -28,10 +28,10 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="js/leaflet.wms.js"></script>
-        <script src="data/com_3.js"></script>
-        <script src="data/sipae_lite_4.js"></script>
-        <script src="data/recerca_5.js"></script>
+        <script src="data/munis_1.js"></script>
+        <script src="data/com_2.js"></script>
+        <script src="data/sipae_lite_3.js"></script>
+        <script src="data/recerca_4.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:20, minZoom:4
@@ -45,25 +45,88 @@
                 map.fitBounds(bounds_group.getBounds());
             }
         }
-
-        layer_EsriImagery_1;
-        map.addLayer(layer_EsriImagery_1);
-        map.createPane('pane_Capamapagrissimplificadarasteritzada_2');
-        map.getPane('pane_Capamapagrissimplificadarasteritzada_2').style.zIndex = 402;
-        var layer_Capamapagrissimplificadarasteritzada_2 = L.WMS.layer("https://geoserveis.icgc.cat/servei/catalunya/contextmaps/wms&crs=EPSG:25831&format=image/jpeg&styles=&layers=contextmaps-mapa-base-gris&referer=ICGC&IgnoreGetMapUrl=1", "contextmaps-mapa-base-gris-simplificat", {
-            pane: 'pane_Capamapagrissimplificadarasteritzada_2',
-            format: 'image/png',
-            uppercase: true,
-            transparent: true,
-            continuousWorld : true,
-            tiled: true,
-            info_format: 'text/html',
-            opacity: 1,
-            identify: false,
+		
+        map.createPane('pane_GoogleSatellite_0');
+        map.getPane('pane_GoogleSatellite_0').style.zIndex = 400;
+        var layer_GoogleSatellite_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleSatellite_0',
+            opacity: 1.0,
             attribution: '',
+            minZoom: 4,
+            maxZoom: 20,
         });
-        map.addLayer(layer_Capamapagrissimplificadarasteritzada_2);
-        function pop_com_3(feature, layer) {
+        layer_GoogleSatellite_0;
+        map.addLayer(layer_GoogleSatellite_0);
+        function pop_munis_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODIMUNI'] !== null ? autolinker.link(feature.properties['CODIMUNI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMMUNI'] !== null ? autolinker.link(feature.properties['NOMMUNI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AREAM5000'] !== null ? autolinker.link(feature.properties['AREAM5000'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODICOMAR'] !== null ? autolinker.link(feature.properties['CODICOMAR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMCOMAR'] !== null ? autolinker.link(feature.properties['NOMCOMAR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAPCOMAR'] !== null ? autolinker.link(feature.properties['CAPCOMAR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODIVEGUE'] !== null ? autolinker.link(feature.properties['CODIVEGUE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMVEGUE'] !== null ? autolinker.link(feature.properties['NOMVEGUE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAPVEGUE'] !== null ? autolinker.link(feature.properties['CAPVEGUE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CODIPROV'] !== null ? autolinker.link(feature.properties['CODIPROV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMPROV'] !== null ? autolinker.link(feature.properties['NOMPROV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAPPROV'] !== null ? autolinker.link(feature.properties['CAPPROV'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_munis_1_0() {
+            return {
+                pane: 'pane_munis_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_munis_1');
+        map.getPane('pane_munis_1').style.zIndex = 401;
+        map.getPane('pane_munis_1').style['mix-blend-mode'] = 'normal';
+        var layer_munis_1 = new L.geoJson(json_munis_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_munis_1',
+            layerName: 'layer_munis_1',
+            pane: 'pane_munis_1',
+            onEachFeature: pop_munis_1,
+            style: style_munis_1_0,
+        });
+        bounds_group.addLayer(layer_munis_1);
+        map.addLayer(layer_munis_1);
+        function pop_com_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['CODICOMAR'] !== null ? autolinker.link(feature.properties['CODICOMAR'].toLocaleString()) : '') + '</td>\
@@ -81,11 +144,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_com_3_0() {
+        function style_com_2_0() {
             return {
-                pane: 'pane_com_3',
+                pane: 'pane_com_2',
                 opacity: 1,
-                color: 'rgba(0,0,0,1.0)',
+                color: 'rgba(255,255,255,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
@@ -94,21 +157,21 @@
                 interactive: false,
             }
         }
-        map.createPane('pane_com_3');
-        map.getPane('pane_com_3').style.zIndex = 403;
-        map.getPane('pane_com_3').style['mix-blend-mode'] = 'normal';
-        var layer_com_3 = new L.geoJson(json_com_3, {
+        map.createPane('pane_com_2');
+        map.getPane('pane_com_2').style.zIndex = 402;
+        map.getPane('pane_com_2').style['mix-blend-mode'] = 'normal';
+        var layer_com_2 = new L.geoJson(json_com_2, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_com_3',
-            layerName: 'layer_com_3',
-            pane: 'pane_com_3',
-            onEachFeature: pop_com_3,
-            style: style_com_3_0,
+            dataVar: 'json_com_2',
+            layerName: 'layer_com_2',
+            pane: 'pane_com_2',
+            onEachFeature: pop_com_2,
+            style: style_com_2_0,
         });
-        bounds_group.addLayer(layer_com_3);
-        map.addLayer(layer_com_3);
-        function pop_sipae_lite_4(feature, layer) {
+        bounds_group.addLayer(layer_com_2);
+        map.addLayer(layer_com_2);
+        function pop_sipae_lite_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['qc_id'] !== null ? autolinker.link(feature.properties['qc_id'].toLocaleString()) : '') + '</td>\
@@ -138,9 +201,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_sipae_lite_4_0() {
+        function style_sipae_lite_3_0() {
             return {
-                pane: 'pane_sipae_lite_4',
+                pane: 'pane_sipae_lite_3',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -148,26 +211,26 @@
                 lineJoin: 'miter',
                 weight: 1.0, 
                 fill: true,
-                fillOpacity: 1,
+                fillOpacity: 0.4,
                 fillColor: 'rgba(29,63,94,1.0)',
                 interactive: false,
             }
         }
-        map.createPane('pane_sipae_lite_4');
-        map.getPane('pane_sipae_lite_4').style.zIndex = 404;
-        map.getPane('pane_sipae_lite_4').style['mix-blend-mode'] = 'normal';
-        var layer_sipae_lite_4 = new L.geoJson(json_sipae_lite_4, {
+        map.createPane('pane_sipae_lite_3');
+        map.getPane('pane_sipae_lite_3').style.zIndex = 403;
+        map.getPane('pane_sipae_lite_3').style['mix-blend-mode'] = 'normal';
+        var layer_sipae_lite_3 = new L.geoJson(json_sipae_lite_3, {
             attribution: '',
             interactive: false,
-            dataVar: 'json_sipae_lite_4',
-            layerName: 'layer_sipae_lite_4',
-            pane: 'pane_sipae_lite_4',
-            onEachFeature: pop_sipae_lite_4,
-            style: style_sipae_lite_4_0,
+            dataVar: 'json_sipae_lite_3',
+            layerName: 'layer_sipae_lite_3',
+            pane: 'pane_sipae_lite_3',
+            onEachFeature: pop_sipae_lite_3,
+            style: style_sipae_lite_3_0,
         });
-        bounds_group.addLayer(layer_sipae_lite_4);
-        map.addLayer(layer_sipae_lite_4);
-        function pop_recerca_5(feature, layer) {
+        bounds_group.addLayer(layer_sipae_lite_3);
+        map.addLayer(layer_sipae_lite_3);
+        function pop_recerca_4(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['comarca'] !== null ? autolinker.link(feature.properties['comarca'].toLocaleString()) : '') + '</td>\
@@ -221,11 +284,11 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_recerca_5_0(feature) {
+        function style_recerca_4_0(feature) {
             switch(String(feature.properties['categoria'])) {
                 case 'CERCA':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -241,7 +304,7 @@
                     break;
                 case 'CSIC':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -257,7 +320,7 @@
                     break;
                 case 'Grans infraestructures de suport a la recerca':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -273,7 +336,7 @@
                     break;
                 case 'Institucions hospitalàries':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -289,7 +352,7 @@
                     break;
                 case 'Instituts universitaris de recerca':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -305,7 +368,7 @@
                     break;
                 case 'IRTA':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -321,7 +384,7 @@
                     break;
                 case 'Parcs científics i tecnològics':
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -337,7 +400,7 @@
                     break;
                 default:
                     return {
-                pane: 'pane_recerca_5',
+                pane: 'pane_recerca_4',
                 radius: 4.0,
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
@@ -353,26 +416,26 @@
                     break;
             }
         }
-        map.createPane('pane_recerca_5');
-        map.getPane('pane_recerca_5').style.zIndex = 405;
-        map.getPane('pane_recerca_5').style['mix-blend-mode'] = 'normal';
-        var layer_recerca_5 = new L.geoJson(json_recerca_5, {
+        map.createPane('pane_recerca_4');
+        map.getPane('pane_recerca_4').style.zIndex = 404;
+        map.getPane('pane_recerca_4').style['mix-blend-mode'] = 'normal';
+        var layer_recerca_4 = new L.geoJson(json_recerca_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_recerca_5',
-            layerName: 'layer_recerca_5',
-            pane: 'pane_recerca_5',
-            onEachFeature: pop_recerca_5,
+            dataVar: 'json_recerca_4',
+            layerName: 'layer_recerca_4',
+            pane: 'pane_recerca_4',
+            onEachFeature: pop_recerca_4,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_recerca_5_0(feature));
+                return L.circleMarker(latlng, style_recerca_4_0(feature));
             },
         });
-        bounds_group.addLayer(layer_recerca_5);
-        map.addLayer(layer_recerca_5);
+        bounds_group.addLayer(layer_recerca_4);
+        map.addLayer(layer_recerca_4);
         setBounds();
         </script>
     </body>
